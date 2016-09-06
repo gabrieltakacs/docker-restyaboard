@@ -23,10 +23,10 @@ RUN echo "postfix postfix/mailname string localhost" | debconf-set-selections \
 		unzip \
 	&& rm -rf /var/lib/apt/lists/*
 
+COPY restyaboard.conf /etc/nginx/sites-enabled/default
 RUN curl -L -o /tmp/restyaboard.zip https://github.com/RestyaPlatform/board/releases/download/v${RESTYABOARD_VERSION}/board-v${RESTYABOARD_VERSION}.zip \
 	&& unzip /tmp/restyaboard.zip -d /usr/share/nginx/html \
 	&& rm /tmp/restyaboard.zip \
-	&& cp restyaboard.conf /etc/nginx/sites-enabled/default \
 	&& mkdir -p /etc/restyaboard \
 	&& mv /usr/share/nginx/html/server/php/config.inc.php /usr/share/nginx/html/server/php/config.inc.php.back
 
