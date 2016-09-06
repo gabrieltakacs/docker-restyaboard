@@ -26,7 +26,7 @@ RUN echo "postfix postfix/mailname string localhost" | debconf-set-selections \
 RUN curl -L -o /tmp/restyaboard.zip https://github.com/RestyaPlatform/board/releases/download/v${RESTYABOARD_VERSION}/board-v${RESTYABOARD_VERSION}.zip \
 	&& unzip /tmp/restyaboard.zip -d /usr/share/nginx/html \
 	&& rm /tmp/restyaboard.zip \
-	&& cp /usr/share/nginx/html/restyaboard.conf /etc/nginx/sites-enabled/default \
+	&& cp restyaboard.conf /etc/nginx/sites-enabled/default \
 	&& mkdir -p /etc/restyaboard \
 	&& mv /usr/share/nginx/html/server/php/config.inc.php /usr/share/nginx/html/server/php/config.inc.php.back
 
@@ -44,6 +44,8 @@ COPY run.sh /usr/local/bin
 VOLUME /etc/restyaboard /usr/share/nginx/html/media
 
 WORKDIR /usr/share/nginx/html
+
+
 
 EXPOSE 80
 
