@@ -1,5 +1,6 @@
 FROM debian:jessie
 MAINTAINER Mathieu Viossat <mathieu@viossat.fr>
+MAINTAINER Gabriel Takacs <contact@gtakacs.sk>
 
 ENV RESTYABOARD_VERSION 0.3
 
@@ -30,15 +31,16 @@ RUN curl -L -o /tmp/restyaboard.zip https://github.com/RestyaPlatform/board/rele
 	&& mv /usr/share/nginx/html/server/php/config.inc.php /usr/share/nginx/html/server/php/config.inc.php.back
 
 RUN { \
-		echo '* * * * * php /usr/share/nginx/htmlserver/php/shell/indexing_to_elasticsearch.sh'; \
-		echo '* * * * * php /usr/share/nginx/htmlserver/php/shell/instant_email_notification.sh'; \
-		echo '0 * * * * php /usr/share/nginx/htmlserver/php/shell/periodic_email_notification.sh'; \
-		echo '* * * * * php /usr/share/nginx/htmlserver/php/shell/imap.sh'; \
-		echo '* * * * * php /usr/share/nginx/htmlserver/php/shell/webhook.sh'; \
-		echo '* * * * * php /usr/share/nginx/htmlserver/php/shell/card_due_notification.sh'; \
+		echo '* * * * * php /usr/share/nginx/html/server/php/shell/indexing_to_elasticsearch.sh'; \
+		echo '* * * * * php /usr/share/nginx/html/server/php/shell/instant_email_notification.sh'; \
+		echo '0 * * * * php /usr/share/nginx/html/server/php/shell/periodic_email_notification.sh'; \
+		echo '* * * * * php /usr/share/nginx/html/server/php/shell/imap.sh'; \
+		echo '* * * * * php /usr/share/nginx/html/server/php/shell/webhook.sh'; \
+		echo '* * * * * php /usr/share/nginx/html/server/php/shell/card_due_notification.sh'; \
 	} > /var/spool/cron/crontabs/root
 
 COPY run.sh /usr/local/bin
+RUN a+x /usr/local/bin/run.sh
 
 VOLUME /etc/restyaboard /usr/share/nginx/html/media
 
