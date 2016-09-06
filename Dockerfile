@@ -40,7 +40,6 @@ RUN { \
 	} > /var/spool/cron/crontabs/root
 
 COPY run.sh /usr/local/bin
-RUN a+x /usr/local/bin/run.sh
 
 VOLUME /etc/restyaboard /usr/share/nginx/html/media
 
